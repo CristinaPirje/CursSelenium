@@ -5,6 +5,7 @@ import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 
 import seleniumutils.BaseTest;
@@ -61,10 +62,11 @@ public class SeleniumLocatorsExample extends BaseTest {
 		assertEquals(currentUrl,"https://keybooks.ro/shop/");
 		
 	}
+	
 	@Test(priority=3)
 	public void partialLinkText() {
 		
-		WebElement cookingBook= driver.findElement(By.linkText("Cooking"));
+		WebElement cookingBook= driver.findElement(By.linkText("Cooking with love"));
 		cookingBook.click();
 		assertEquals(driver.getCurrentUrl(),"https://keybooks.ro/shop/cooking-with-love/");
 		
@@ -79,5 +81,44 @@ public class SeleniumLocatorsExample extends BaseTest {
 		System.out.println(price.getText());
 		assertTrue(price.getText().contains("18.49"));
 	}
-
+	@Test(priority=5)
+	public void idlocator() {
+		Actions action = new Actions(driver);
+		action.scrollByAmount(0, 2500).perform();
+		
+		WebElement reviewTab= driver.findElement(By.id("tab-title-reviews"));
+		reviewTab.click();
+		WebElement commentBox= driver.findElement(By.id("comment"));
+		assertTrue(commentBox.isDisplayed());
+	}
+	@Test(priority=6)
+	public void nameLocator() {
+		
+		WebElement commentBox= driver.findElement(By.name("comment"));
+		commentBox.sendKeys("My super duper message");
+	}
+	
+	@Test(priority=7)
+	public void cssLocator() throws InterruptedException{
+		WebElement nameBox= driver.findElement(By.cssSelector("input[name='author']"));
+		nameBox.sendKeys("Johnny Bravo");
+		Thread.sleep(3000);
+		nameBox.clear();
+		nameBox.sendKeys("John Doe");
+		Thread.sleep(3000);
+		
+		
+		
+	}
+	@Test(priority=8)
+	
+	public void xpathLocator() {
+		
+		WebElement emailBox= driver.findElement(By.xpath("//input[@type='email']"));
+		emailBox.sendKeys("john.doe@test.com");
+		
+		
+	}
 }
+
+
