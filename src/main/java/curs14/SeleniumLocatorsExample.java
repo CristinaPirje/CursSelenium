@@ -41,84 +41,87 @@ public class SeleniumLocatorsExample extends BaseTest {
 	
 	@Test(priority = 1)
 	public void tagNameLocator() {
-		//
+		
+		//<em>Discover</em>
 		//driver.findElement(By.tagName("em")).click();
-		WebElement discoverText= driver.findElement(By.tagName("em"));
-		String text= discoverText.getText();//metoda getText->intoarce textul dintre tagurile html
+		WebElement discoverText = driver.findElement(By.tagName("em"));
+		String text = discoverText.getText();//metoda getText() -> intoarce textul dintre tagurile html
+		
 		System.out.println(text);
-		//assert.Equals(text,"Discover");
-	
+		assertEquals(text, "Discover");
+		
 	}
-	@Test(priority =2)
 	
+	@Test(priority=2)
 	public void linkTextLocator() {
-		
-		
+		//                                   linkText
+		//                                       ^ 
+		//<a href="https://keybooks.ro/shop/">Books</a>
 		WebElement booksLink = driver.findElement(By.linkText("BOOKS"));
 		booksLink.click();
 		
-		String currentUrl= driver.getCurrentUrl();
+		String currentUrl = driver.getCurrentUrl();
 		System.out.println(currentUrl);
-		assertEquals(currentUrl,"https://keybooks.ro/shop/");
-		
+		assertEquals(currentUrl, "https://keybooks.ro/shop/");
 	}
 	
 	@Test(priority=3)
 	public void partialLinkText() {
 		
-		WebElement cookingBook= driver.findElement(By.linkText("Cooking with love"));
+		WebElement cookingBook = driver.findElement(By.partialLinkText("Cooking"));
 		cookingBook.click();
-		assertEquals(driver.getCurrentUrl(),"https://keybooks.ro/shop/cooking-with-love/");
-		
+		assertEquals(driver.getCurrentUrl(), "https://keybooks.ro/shop/cooking-with-love/");
 		
 	}
-	
 	@Test(priority=4)
-	
 	public void classNameLocator() {
 		
 		WebElement price = driver.findElement(By.className("price"));
+		
 		System.out.println(price.getText());
 		assertTrue(price.getText().contains("18.49"));
+			
 	}
+	
 	@Test(priority=5)
-	public void idlocator() {
-		Actions action = new Actions(driver);
-		action.scrollByAmount(0, 2500).perform();
+	public void idLocator() {
 		
-		WebElement reviewTab= driver.findElement(By.id("tab-title-reviews"));
+		Actions action = new Actions(driver);
+		action.scrollByAmount(0, 500).perform();
+		
+		WebElement reviewTab = driver.findElement(By.id("tab-title-reviews"));
 		reviewTab.click();
-		WebElement commentBox= driver.findElement(By.id("comment"));
+		WebElement commentBox =  driver.findElement(By.id("comment"));
+		
 		assertTrue(commentBox.isDisplayed());
+		
 	}
 	@Test(priority=6)
 	public void nameLocator() {
 		
-		WebElement commentBox= driver.findElement(By.name("comment"));
-		commentBox.sendKeys("My super duper message");
+		WebElement commentBox =  driver.findElement(By.name("comment"));
+		commentBox.sendKeys("My super duper message!");
 	}
 	
 	@Test(priority=7)
-	public void cssLocator() throws InterruptedException{
-		WebElement nameBox= driver.findElement(By.cssSelector("input[name='author']"));
+	public void cssLocator() throws InterruptedException {
+		WebElement nameBox = driver.findElement(By.cssSelector("input[name='author']"));
 		nameBox.sendKeys("Johnny Bravo");
 		Thread.sleep(3000);
 		nameBox.clear();
-		nameBox.sendKeys("John Doe");
 		Thread.sleep(3000);
-		
-		
-		
+		nameBox.sendKeys("John Doe");
+		Thread.sleep(3000);	
 	}
-	@Test(priority=8)
 	
+	@Test(priority=8)
 	public void xpathLocator() {
 		
-		WebElement emailBox= driver.findElement(By.xpath("//input[@type='email']"));
+		WebElement emailBox =  driver.findElement(By.xpath("//input[@type='email']"));
 		emailBox.sendKeys("john.doe@test.com");
-		
-		
 	}
+	
+	
 }
 
 
